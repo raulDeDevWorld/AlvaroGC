@@ -1,6 +1,6 @@
 'use client'
 import { useUser } from '@/context/Context'
-import { onAuth, signInWithEmailAndPassword } from '@/firebase/database'
+import { onAuth, signInWithEmail } from '@/firebase/database'
 import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,55 +19,55 @@ export default function Home() {
     e.preventDefault()
     let email = e.target[0].value
     let password = e.target[1].value
-
-    email.length !== 0 && password.length  !== 0 ? signInWithEmailAndPassword(email, password, setUserSuccess) : setUserSuccess('Complete')
+    email.length !== 0 && password.length !== 0 ? signInWithEmail(email, password, setUserProfile, setUserSuccess) : setUserSuccess('Complete')
   }
 
   useEffect(() => {
     user === undefined && onAuth(setUserProfile)
-    if (user !== undefined && user !== null) router.replace('/Cliente')
+    if (user !== undefined && user !== null) router.replace('/Admin')
   }, [user]);
 
-console.log(success)
+  console.log(user)
   return (
 
-    <div>
-      <header ></header>
-      <main >
-        <Image src="/logo-main.svg" width="200" height="200" alt="User" />
-        <br />
-        <br />
-        <div
-          className="w-[80%] p-0 bg-transparent rounded-lg shadow sm:p-6 md:p-8 "
-        // className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 
-        // dark:bg-gray-800 dark:border-gray-700"
-        >
-          <form className="space-y-6" onSubmit={signInHandler} >
-            <h5 className="text-[24px] font-medium text-white ">Iniciar Sesión</h5>
-            <div>
-              <label htmlFor="email" className="block mb-2 text-[16px] text-left font-medium text-white">Email</label>
-              <Input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-[16px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
-            </div>
-            <div>
-              <label htmlFor="password" className="block mb-2 text-[16px] text-left  font-medium text-white">Contraseña</label>
-              <Input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-[16px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
-            </div>
-            <div className="flex items-start">
-              <a href="#" className="ml-auto text-white text-[14px] text-gray-100 hover:underline">Olvidaste tu contraseña?</a>
-            </div>
-            <Button type="submit" theme="Transparent">Iniciar Sesión</Button>
-            <div className="text-[14px] font-medium text-white">No tienes una cuenta? <Link href="/SignUp" className="text-gray-100 hover:underline">Registrate</Link >
-            </div>
-          </form>
+
+
+
+    <section className=" min-h-screen pt-[70px] bg-gray-50 dark:bg-gray-900">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+          <img className="w-[70px] h-[70px] mr-2" src="/logo.svg" alt="logo" />
+          AlvaroCG
+        </a>
+        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              Hola Alvaro Inicia Sesión
+            </h1>
+            <form className="space-y-4 md:space-y-6" onSubmit={signInHandler}>
+              <div>
+                <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <Input type="email" name="email" id="email" placeholder="name@company.com" required="" />
+              </div>
+              <div>
+                <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                <Input type="password" name="password" id="password" placeholder="••••••••" required="" />
+              </div>
+              
+              <Button type="submit" theme={'Primary'}>Iniciar Sesión</Button>
+            </form>
+          </div>
         </div>
-      </main>
-      {/* {success == 'AccountNonExist' && <Error>Cuenta inexistente</Error>}
-      {success == 'Complete' && <Error>Complete el formulario</Error>} */}
-
-
-      {/* {success == false && <Error>ERROR: verifique e intente nuevamente</Error>}
-        {success == 'complete' && <Error>Llene todo el formulario</Error>} */}
-    </div>
+      </div>
+    </section>
 
   )
 }
+  
+
+{/* {success == 'AccountNonExist' && <Error>Cuenta inexistente</Error>}
+      {success == 'Complete' && <Error>Complete el formulario</Error>} */}
+
+
+  {/* {success == false && <Error>ERROR: verifique e intente nuevamente</Error>}
+        {success == 'complete' && <Error>Llene todo el formulario</Error>} */}

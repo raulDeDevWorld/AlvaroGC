@@ -33,32 +33,19 @@ function onAuth(setUserProfile, setUserData, postsIMG, setUserPostsIMG, setUserD
 
 // ---------------------------Login, Sign Up and Sign In------------------------------------
 
-function signUpWithEmail(email, password, setUserSuccess) {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      setUserSuccess('SignUpError')
-      // ..
-    });
-}
-
-function signInWithEmail(email, password, setUserSuccess) {
+function signInWithEmail(email, password, setUserProfile, setUserSuccess) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
       // ...
+      setUserProfile(user)
+      console.log(user)
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      setUserSuccess('Verify')
+      console.log(error)
     });
 }
 
@@ -127,5 +114,5 @@ function removeData(ruteDB, setUserData, setUserSuccess) {
     .catch(() => setUserSuccess('repeat'));
 }
 
-export { app, onAuth, signUpWithEmail, signInWithEmail, handleSignOut, getIndexData, getSpecificData, writeUserData, removeData, }
+export { onAuth, signInWithEmail, handleSignOut, getIndexData, getSpecificData, writeUserData, removeData, }
 

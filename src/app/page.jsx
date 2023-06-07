@@ -89,7 +89,7 @@ export default function Home() {
             <img src="./image.svg" alt="" />
             <ul className='border-l-2 border-[#01C89E] pl-5'>
               {
-                Lists.map((i, index) => <List>{i}</List>
+                Lists.map((i, index) => <List key={index}>{i}</List>
                 )
               }
             </ul>
@@ -100,7 +100,7 @@ export default function Home() {
         <Subtitle>Testimonios</Subtitle>
         <div className='w-full flex flex-col lg:flex-row justify-around'>
           {
-            Cards.map((i, index) => <Card image={i.image} name={i.name} text={i.text} />
+            Cards.map((i, index) => <Card key={index} image={i.image} name={i.name} text={i.text} />
             )
           }
         </div>
