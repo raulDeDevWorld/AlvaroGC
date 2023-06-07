@@ -27,7 +27,7 @@ export default function Home() {
     'Corrección de errores de las escrituras públicas.',
     'Conservacion de archivos notariales.',
   ]
-
+   
   const Cards = [
     {
       image: 'perfil1.png',
