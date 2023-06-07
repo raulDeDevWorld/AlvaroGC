@@ -1,6 +1,6 @@
 import { app } from './config'
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
-import { writeUserData } from './utils'
+import { writeUserData } from './database'
 
 import imageCompression from 'browser-image-compression';
 

@@ -1,12 +1,11 @@
 'use client';
 import { useUser } from '@/context/Context'
-import { onAuth, signUpWithEmailAndPassword } from '@/supabase/utils'
+import { onAuth, signUpWithEmailAndPassword } from '@/firebase/database'
 import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import style from '@/app/page.module.css'
 import Button from '@/components/Button'
-import Error from '@/components/Error'
+// import Error from '@/components/Error'
 
 import Input from '@/components/Input'
 import { useRouter } from 'next/navigation';
@@ -35,9 +34,9 @@ export default function Home() {
   console.log(user)
   return (
 
-    <div className={style.container}>
-      <header className={style.header}></header>
-      <main className={style.main}>
+    <div>
+      <header></header>
+      <main>
         <Image src="/logo-main.svg" width="200" height="200" alt="User" />
         <br />
         <br />

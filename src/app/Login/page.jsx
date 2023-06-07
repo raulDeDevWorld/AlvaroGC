@@ -4,10 +4,9 @@ import { onAuth, signInWithEmailAndPassword } from '@/firebase/database'
 import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import style from './page.module.css'
-import Button from '../components/Button'
-import Input from '../components/Input'
-import Error from '@/components/Error'
+import Button from '@/components/Button'
+import Input from '@/components/Input'
+// import Error from '@/components/Error'
 
 import { useRouter } from 'next/navigation';
 
@@ -32,9 +31,9 @@ export default function Home() {
 console.log(success)
   return (
 
-    <div className={style.container}>
-      <header className={style.header}></header>
-      <main className={style.main}>
+    <div>
+      <header ></header>
+      <main >
         <Image src="/logo-main.svg" width="200" height="200" alt="User" />
         <br />
         <br />
@@ -62,8 +61,8 @@ console.log(success)
           </form>
         </div>
       </main>
-      {success == 'AccountNonExist' && <Error>Cuenta inexistente</Error>}
-      {success == 'Complete' && <Error>Complete el formulario</Error>}
+      {/* {success == 'AccountNonExist' && <Error>Cuenta inexistente</Error>}
+      {success == 'Complete' && <Error>Complete el formulario</Error>} */}
 
 
       {/* {success == false && <Error>ERROR: verifique e intente nuevamente</Error>}

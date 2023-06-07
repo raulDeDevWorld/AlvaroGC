@@ -3,7 +3,7 @@ import { app } from './config'
 import { onAuthStateChanged, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { getDatabase, ref, onValue, set, update, child, get, query, remove, startAfter, limitToFirst, limitToLast, orderByValue, startAt, orderByChild, endAt, endBefore } from "firebase/database";
 import { getList, getIndexStorage } from './storage'
-import { getDate, getDayMonthYear, getMonthAndYear } from '../utils/Utils'
+// import { getDate, getDayMonthYear, getMonthAndYear } from '../utils/Utils'
 
 
 const auth = getAuth();
@@ -25,13 +25,9 @@ function onAuth(setUserProfile, setUserData, postsIMG, setUserPostsIMG, setUserD
             setUserData(allData)
           }
         });
-
-
-
     }
 
-    getMonthAndYear(setUserMonthAndYear)
-    getDayMonthYear(setUserDayMonthYear)
+
   });
 }
 
@@ -81,27 +77,7 @@ const dbRef = ref(getDatabase());
 let allData = {}
 
 
-async function getIndexData(setUserData, date, minDate, setUserSuccess) {
-  let arr = ['Inicio', 'Sociedad', 'Salud', 'Seguridad', 'Politica', 'Economia', 'Deportes', 'GestionDeGobierno', 'Cultura', 'Empresarial', 'Internacional']
-  let arr2 = ['BannerIzquierdo1', 'BannerIzquierdo2', 'BannerIzquierdo3', 'BannerIzquierdo4', 'BannerPortada1', 'BannerPortada2', 'BannerPortada3', 'BannerDerecho1', 'BannerDerecho2', 'BannerDerecho3', 'BannerDerecho4', 'BannerPortada']
-  let arr3 = ['BannerNotas1', 'BannerNotas2', 'BannerNotas3', 'BannerNotas4']
-
-
-             
-
-
-  get(query(ref(db, 'login')))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        let snap = snapshot.val()
-        // setUserData(allData)
-        allData = { ...allData, login: snap }
-        setUserData(allData)
-      }
-    });
-
-
-          
+async function getIndexData(setUserData, date, minDate, setUserSuccess) {        
 
   get(query(ref(db, 'users')))
     .then((snapshot) => {
@@ -112,127 +88,6 @@ async function getIndexData(setUserData, date, minDate, setUserSuccess) {
       }
 
     });
-
-  let  nowaday = new Date().getTime()
-
-  arr2.map((i) => {
-    // get(query(ref(db, i),  orderByChild('dateInit'), endBefore(date.toString())))
-    get(query(ref(db, i), limitToLast(10), orderByChild('dateFinish'), startAt(minDate? minDate: nowaday),))
-
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          let snap = snapshot.val()
-          allData = { ...allData, [i]: snap }
-          setUserData(allData)
-        }
-      });       
-  });
-
-
-  arr3.map((i) => {
-    get(query(ref(db, i)))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          let snap = snapshot.val()
-          // setUserData(allData)
-          allData = { ...allData, [i]: snap }
-        }
-
-      });
-  });
-
-
-  arr.map((i) => {
-    // get(query(ref(db, `${i}/Posts`), limitToLast(10), orderByChild('fecha'), ))
-
-    console.log(parseInt(date))
-    // get(query(ref(db, `${i}/Posts`), limitToLast(10), orderByChild('fecha'), startAt(minDate), endAt(date)))
-
-     get(query(ref(db, `${i}/Posts`), limitToLast(12), orderByChild('fecha'), startAt(minDate), endAt(date)))
-    .then(async (snapshot) => {
-
-        if (snapshot.exists()) {
-          let snap = snapshot.val()
-          allData = {
-            ...allData, [i]: {
-              ...allData[i],
-              Posts: snap,
-            }
-
-          }
-        }
-        setUserData(allData)
-      })
-  });
-
-  arr.map((i) => {
-    get(query(ref(db, `${i}/Templates`)))
-      .then(async (snapshot) => {
-
-        if (snapshot.exists()) {
-          let snapTempVal = snapshot.val()
-
-          allData = {
-            ...allData, [i]: {
-              ...allData[i],
-              Templates: snapTempVal
-            }
-
-          }
-        } else {
-
-          allData = {
-            ...allData, [i]: {
-              ...allData[i],
-              Templates: 'TemplateThreeB'
-            }
-
-          }
-        }
-
-        setUserData(allData)
-      })
-  });
-
-
-  arr.map((i) => {
-    get(query(ref(db, `${i}/BannerTop`)))
-      .then(async (snapshot) => {
-
-        if (snapshot.exists()) {
-          let snapTempVal = snapshot.val()
-
-          allData = {
-            ...allData, [i]: {
-              ...allData[i],
-              BannerTop: snapTempVal
-            }
-
-          }
-          setUserData(allData)
-        }
-      })
-  });
-
-  arr.map((i) => {
-    get(query(ref(db, `${i}/BannerBottom`)))
-      .then(async (snapshot) => {
-
-        if (snapshot.exists()) {
-          let snapTempVal = snapshot.val()
-
-          allData = {
-            ...allData, [i]: {
-              ...allData[i],
-              BannerBottom: snapTempVal
-            }
-
-          }
-          setUserData(allData)
-        }
-      })
-  });
-
 
 }
 
@@ -271,5 +126,6 @@ function removeData(ruteDB, setUserData, setUserSuccess) {
     })
     .catch(() => setUserSuccess('repeat'));
 }
+
 export { app, onAuth, signUpWithEmail, signInWithEmail, handleSignOut, getIndexData, getSpecificData, writeUserData, removeData, }
 
