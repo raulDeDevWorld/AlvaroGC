@@ -53,10 +53,13 @@ export default function Modal({ theme, styled, click, children, }) {
             [e.target[5].name]: e.target[5].value,
             [e.target[6].name]: e.target[6].value,
         }
-        e.target[0].files[0] && uploadIMG('frontPage', 'frontPage', 'frontPage', e.target[0].files[0], obj, setUserSuccess, 'url')
-        e.target[1].files[0] && uploadIMG('frontPage', 'frontPage', 'frontPage', e.target[1].files[0], obj, setUserSuccess, 'urlIMG')
-        e.target[0].files[0] === undefined && e.target[1].files[1] === undefined && writeUserData('frontPage', obj, setUserSuccess)
+        console.log(e.target[0].files[0])
+        console.log(e.target[1].files[0])
 
+
+        e.target[0].files[0] && uploadIMG('frontPage', 'frontPage', 'frontPage', e.target[0].files[0], obj, setUserSuccess, 'url')
+        e.target[1].files[0] && uploadIMG('frontPage', 'frontIMG', 'frontIMG', e.target[1].files[0], obj, setUserSuccess, 'urlIMG')
+        e.target[0].files[0] === undefined && e.target[1].files[0] === undefined && writeUserData('frontPage', obj, setUserSuccess)
     }
 
     function addService(e) {
