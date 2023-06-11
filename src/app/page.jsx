@@ -174,7 +174,7 @@ export default function Home() {
 
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-between px-5 ">
+    <main className="flex min-h-screen w-full flex-col items-center justify-between px-5">
       <Navleft></Navleft>
       <section className='max-h-screen w-full pt-18 pb-0 flex flex-col justify-between items-center lg:flex-row justify-around items-center pt-[70px]'>
         <div className='w-screen h-[50vh] flex justify-center items-end lg:w-[50vw] lg:h-[100vh]' style={{ backgroundImage: `url("/perfil.png")`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
@@ -238,9 +238,9 @@ export default function Home() {
         </div>
       </section>
 
-      <img src="/whatsapp.svg" class="fixed h-[50px] w-[50px] bottom-[20px] right-[20px]" onClick={whatsappHandler} alt="" />
+      <img src="/whatsapp.svg" class="fixed h-[50px] w-[50px] bottom-[80px] right-[20px]" onClick={whatsappHandler} alt="" />
 
-      <div className={`fixed bottom-[20px] right-[20px] pt-14 pb-9 px-2 flex flex-grow flex-col justify-end rounded-[10px] border-gray-200 shadow bg-[url('/background.jpeg')] ${whatsapp ? 'fixed' : 'hidden'}`} >
+      <div className={`fixed bottom-[80px] right-[20px] pt-14 pb-9 px-2 flex flex-grow flex-col justify-end rounded-[10px] border-gray-200 shadow bg-[url('/background.jpeg')] ${whatsapp ? 'fixed' : 'hidden'}`} >
         <div className='absolute top-0 left-0  w-full h-[50px] bg-[#00826A] rounded-t-[10px]'>
           <img src="/perfil.jpg" className='absolute h-[35px] w-[35px] left-[5px] top-[7.5px]  rounded-[35px]' alt="" />
           <div className='absolute flex flex-col left-[50px] top-[12px] text-white text-[12px]'>
@@ -265,7 +265,7 @@ export default function Home() {
         </div>
 
       </div>
-      <footer class="w-full bg-neutral-900 text-center text-white mt-[70px]">
+      <footer class="w-full bg-neutral-900 text-center text-white mt-[70px] z-50">
         <div class="container px-6 pt-6 flex justify-center">
           <div class="mb-6 flex justify-center">
             <a
