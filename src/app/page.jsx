@@ -1,4 +1,5 @@
 'use client'
+import { useUser } from '@/context/Context'
 
 import { useState } from 'react'
 import Button from '@/components/Button'
@@ -7,19 +8,29 @@ import Paragraph from '@/components/Paragraph'
 import List from '@/components/List'
 import Card from '@/components/Card'
 import CardH from '@/components/CardH'
-import CardA from '@/components/CardA'
+import Modal from '@/components/Modal'
 import Navleft from '@/components/Navleft'
 
+import { WithAuth } from '@/HOCs/WithAuth'
+
+import { useRouter } from 'next/navigation';
 
 
 
 
-
-export default function Home() {
+ function Home() {
 
   const [whatsapp, setWhatsapp] = useState(false)
   const [msg, setMsg] = useState(false)
+  const [state, setState] = useState(false)
+  const { user, userDB, setUserProfile, setUserSuccess, success, setUserDatas } = useUser()
 
+
+  function handlerState (item) {
+    item ==state 
+    ? setState(null)
+    : setState(item)
+  }
 
   const Lists = [
     {
@@ -174,17 +185,20 @@ export default function Home() {
 
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-between px-5">
-      <Navleft></Navleft>
+    userDB && <main className="flex min-h-screen w-full flex-col items-center justify-between px-5">
+     {userDB && <Modal theme={state} />}
+
+    
       <section className='max-h-screen w-full pt-18 pb-0 flex flex-col justify-between items-center lg:flex-row justify-around items-center pt-[70px]'>
-        <div className='w-screen h-[50vh] flex justify-center items-end lg:w-[50vw] lg:h-[100vh]' style={{ backgroundImage: `url("/perfil.png")`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+        <div className='w-screen h-[50vh] flex justify-center items-end lg:w-[50vw] lg:h-[100vh]' style={{ backgroundImage: `url(${userDB.frontPage['url']})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
         </div>
 
         <div className='h-[50vh] flex flex-col justify-around lg:w-[50vw] lg:h-[100vh] lg:p-12 pt-[70px]'>
-          <img src="./image.svg" className='hidden h-[40%] lg:block' alt="" />
+        <div className='hidden h-[40%] lg:block' style={{ backgroundImage: `url(${userDB.frontPage['urlIMG']})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+        </div>
           <div>
-            <h1 className='w-full text-center text-[16px] lg:text-[22px]'><span className='text-[#00A582] font-bold'>ÁLVARO </span><span className='text-gray-950 font-bold	'>GARCÍA CESPEDES</span></h1>
-            <h1 className='w-full text-center text-[16px] lg:text-[22px]'><span className='text-[#00A582] font-bold'>NOTARIO </span><span className='text-gray-950 font-bold	'>DE FE PÚBLICA N°16</span></h1>
+            <h1 className='w-full text-center text-[16px] lg:text-[22px]'><span className='text-[#00A582] font-bold'>{userDB.frontPage['nombre']}</span><span className='text-gray-950 font-bold	'>{userDB.frontPage['apellidos']}</span></h1>
+            <h1 className='w-full text-center text-[16px] lg:text-[22px]'><span className='text-[#00A582] font-bold'>{userDB.frontPage['especialidad 1']} </span><span className='text-gray-950 font-bold	'>{userDB.frontPage['especialidad 2']}</span></h1>
           </div>
           <div className='w-full flex justify-around' >
             <div className='flex flex-col'><span className='text-[#00A582] text-center text-[25px] font-bold'>5K</span><span className='text-[#00A582]'>Experiencia</span></div>
@@ -238,6 +252,7 @@ export default function Home() {
         </div>
       </section>
 
+      <Navleft funcion={handlerState}></Navleft>
       <img src="/whatsapp.svg" class="fixed h-[50px] w-[50px] bottom-[80px] right-[20px]" onClick={whatsappHandler} alt="" />
 
       <div className={`fixed bottom-[80px] right-[20px] pt-14 pb-9 px-2 flex flex-grow flex-col justify-end rounded-[10px] border-gray-200 shadow bg-[url('/background.jpeg')] ${whatsapp ? 'fixed' : 'hidden'}`} >
@@ -380,3 +395,6 @@ export default function Home() {
     </main>
   )
 }
+
+
+export default WithAuth(Home)
