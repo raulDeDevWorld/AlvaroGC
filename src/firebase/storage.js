@@ -7,12 +7,9 @@ import imageCompression from 'browser-image-compression';
 const storage = getStorage(app)
 
 //--------------------------- Firebase Storage ---------------------------
-async function uploadIMG(ruteDB, ruteSTG, fileName, file, setUserSuccess, monthAndYear, compresse) {
+async function uploadIMG(ruteDB, ruteSTG, fileName, file, object, setUserSuccess) {
     const imagesRef = ref(storage, `/${ruteSTG}/${fileName}`);
 
-
-
-    let newRuteDB = `/${ruteDB}/${fileName}`
     const options = {
         maxWidthOrHeight: 500,
         maxSizeMB: 0.07,
@@ -22,15 +19,15 @@ async function uploadIMG(ruteDB, ruteSTG, fileName, file, setUserSuccess, monthA
         fileType: 'image/webp'
     }
 
-    const compressedFile = file.type != 'image/gif' && compresse == true ? await imageCompression(file, options) : file
+    const compressedFile = file.type != 'image/gif' ? await imageCompression(file, options) : file
     uploadBytes(imagesRef, compressedFile).then(async (snapshot) => {
         getDownloadURL(ref(storage, snapshot.metadata.fullPath))
             .then((url) => {
                 let obj = {
+                    ...object,
                     url,
                 }
- 
-                return writeUserData(newRuteDB, obj)
+                return writeUserData(ruteDB, obj, setUserSuccess)
             })
             .catch((error) => {
             });

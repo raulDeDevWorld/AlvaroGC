@@ -4,8 +4,8 @@ import Loader from '@/components/Loader'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/context/Context.js'
-import { readUserData} from '@/supabase/utils'
-import { onAuth } from '@/supabase/utils'
+import { getUserData} from '@/firebase/database'
+import { onAuth } from '@/firebase/database'
 
 
 
@@ -15,10 +15,9 @@ export function WithAuth(Component) {
         const router = useRouter()
 
         useEffect(() => {
-            if(user === undefined)onAuth(setUserProfile)
+            if(user === undefined) onAuth(setUserProfile)
             if(user === null) router.push('/')
-            if(user !== undefined && userDB === '') readUserData('Users', user.uuid, user, setUserData, 'data') 
-
+            if(user !== undefined && userDB === undefined) getUserData( setUserData ) 
         }, [user, userDB])
         
         return (

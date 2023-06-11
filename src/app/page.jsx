@@ -8,6 +8,8 @@ import List from '@/components/List'
 import Card from '@/components/Card'
 import CardH from '@/components/CardH'
 import CardA from '@/components/CardA'
+import Navleft from '@/components/Navleft'
+
 
 
 
@@ -173,6 +175,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-between px-5 ">
+      <Navleft></Navleft>
       <section className='max-h-screen w-full pt-18 pb-0 flex flex-col justify-between items-center lg:flex-row justify-around items-center pt-[70px]'>
         <div className='w-screen h-[50vh] flex justify-center items-end lg:w-[50vw] lg:h-[100vh]' style={{ backgroundImage: `url("/perfil.png")`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
         </div>

@@ -15,16 +15,6 @@ function onAuth(setUserProfile, setUserData, postsIMG, setUserPostsIMG, setUserD
       setUserProfile(user)
     } else {
       setUserProfile(user)
-
-      get(query(ref(db, 'login')))
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            let snap = snapshot.val()
-            // setUserData(allData)
-            allData = { ...allData, login: snap }
-            setUserData(allData)
-          }
-        });
     }
 
 
@@ -61,17 +51,14 @@ function handleSignOut() {
 
 const dbRef = ref(getDatabase());
 
-let allData = {}
 
+async function getUserData(setUserData) {        
 
-async function getIndexData(setUserData, date, minDate, setUserSuccess) {        
-
-  get(query(ref(db, 'users')))
+  get(query(ref(db, '/')))
     .then((snapshot) => {
       if (snapshot.exists()) {
         let snap = snapshot.val()
-        // setUserData(allData)
-        allData = { ...allData, users: snap }
+        setUserData(snap)
       }
 
     });
@@ -95,7 +82,7 @@ function getSpecificData(rute, specificData, setUserSpecificData) {
   });
 }
 
-function writeUserData(ruteDB, object, setUserSuccess, detail) {
+function writeUserData(ruteDB, object, setUserSuccess) {
   console.log(object)
   update(ref(db, `${ruteDB}`), object)
     .then(() => {
@@ -114,5 +101,5 @@ function removeData(ruteDB, setUserData, setUserSuccess) {
     .catch(() => setUserSuccess('repeat'));
 }
 
-export { onAuth, signInWithEmail, handleSignOut, getIndexData, getSpecificData, writeUserData, removeData, }
+export { onAuth, signInWithEmail, handleSignOut, getUserData, getSpecificData, writeUserData, removeData, }
 
