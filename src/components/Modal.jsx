@@ -53,8 +53,7 @@ export default function Modal({ theme, styled, click, children, }) {
             [e.target[5].name]: e.target[5].value,
             [e.target[6].name]: e.target[6].value,
         }
-        console.log(e.target[0].files[0])
-        console.log(e.target[1].files[0])
+
         e.target[0].files[0] && uploadIMG('frontPage', 'frontPage', 'frontPage', e.target[0].files[0], obj, setUserSuccess, 'url')
         e.target[1].files[0] && uploadIMG('frontPage', 'frontIMG', 'frontIMG', e.target[1].files[0], obj, setUserSuccess, 'urlIMG')
         e.target[0].files[0] === undefined && e.target[1].files[0] === undefined && writeUserData('frontPage', obj, setUserSuccess)
@@ -83,7 +82,7 @@ export default function Modal({ theme, styled, click, children, }) {
     switch (theme) {
         case 'Portada':
             return <div className="fixed top-0 flex justify-center w-full h-auto bg-[#000000b4] p-0 z-30">
-                <form className="w-[95%] h-screen overflow-y-scroll lg:w-[50%] bg-white border-b border-gray-900/10 pt-16 pb-4 px-5" onSubmit={saveFrontPage}>
+                <form className="w-[95%] h-screen overflow-y-scroll lg:w-[50%] bg-white border-b border-gray-900/10 pt-16 pb-16 lg:pb-4 px-5" onSubmit={saveFrontPage}>
                     <div className="col-span-full">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Administrar portada principal</h2>
                         <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">Foto de perfil de portada</label>
