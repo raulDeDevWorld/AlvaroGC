@@ -13,7 +13,6 @@ import Navleft from '@/components/Navleft'
 
 import { WithAuth } from '@/HOCs/WithAuth'
 
-import { useRouter } from 'next/navigation';
 
 
 
@@ -183,7 +182,7 @@ import { useRouter } from 'next/navigation';
     setMsg(e.target.value)
   }
 
-
+console.log(userDB)
   return (
     userDB && <main className="flex min-h-screen w-full flex-col items-center justify-between px-5">
      {userDB && <Modal theme={state} />}
@@ -221,7 +220,7 @@ import { useRouter } from 'next/navigation';
                   <CardH image={i.image} service={i.service} description={i.description} remote={i.remote} cost={i.cost} time={i.time} index={index}></CardH>
                   <div class="inline-flex items-center justify-center w-full">
                     <hr class="w-64 h-px my-8 bg-[#00A582] border-0 dark:bg-gray-700" />
-                    <span class="absolute px-3 font-medium text-[#00A582] -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">•</span>
+                    <span class="absolute px-3 font-medium text-[#00A582] -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900 z-0">•</span>
                   </div>
                 </div>
               )
@@ -230,30 +229,9 @@ import { useRouter } from 'next/navigation';
         </div>
       </section>
 
-      <section className='w-full pt-[70px]' id="Testimonios">
-        <Subtitle>Testimonios</Subtitle>
-        <div className='w-full flex flex-col md:flex-row justify-around'>
-          {
-            Cards.map((i, index) => <Card key={index} image={i.image} name={i.name} text={i.text} />
-            )
-          }
-        </div>
-      </section>
-      <section className='w-full pt-[70px]' id="Articulos">
-        <Subtitle>Artículos</Subtitle>
-        <div className='lg:grid lg:grid-cols-2 lg:gap-4 py-5 mt-5'>
-          <img src="./articulo.png" className='pt-5 pb-5' alt="" />
-          <ul className='border-l-2 border-[#01C89E] pl-5 pt-5 pb-5 flex flex-col justify-between '>
-            {
-              ListsA.map((i, index) => <List key={index}>{i.title}</List>
-              )
-            }
-          </ul>
-        </div>
-      </section>
 
       <Navleft funcion={handlerState}></Navleft>
-      <img src="/whatsapp.svg" class="fixed h-[50px] w-[50px] bottom-[80px] right-[20px]" onClick={whatsappHandler} alt="" />
+      <img src="/whatsapp.svg" class="fixed h-[50px] w-[50px] bottom-[80px] right-[20px] lg:bottom-[20px]" onClick={whatsappHandler} alt="" />
 
       <div className={`fixed bottom-[80px] right-[20px] pt-14 pb-9 px-2 flex flex-grow flex-col justify-end rounded-[10px] border-gray-200 shadow bg-[url('/background.jpeg')] ${whatsapp ? 'fixed' : 'hidden'}`} >
         <div className='absolute top-0 left-0  w-full h-[50px] bg-[#00826A] rounded-t-[10px]'>
@@ -280,7 +258,7 @@ import { useRouter } from 'next/navigation';
         </div>
 
       </div>
-      <footer class="w-full bg-neutral-900 text-center text-white mt-[70px] z-50">
+      <footer class="w-full bg-neutral-900 text-center text-white mt-[70px] z-20">
         <div class="container px-6 pt-6 flex justify-center">
           <div class="mb-6 flex justify-center">
             <a
@@ -364,7 +342,6 @@ import { useRouter } from 'next/navigation';
                   d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
               </svg>
             </a>
-
             <a
               href="#!"
               type="button"

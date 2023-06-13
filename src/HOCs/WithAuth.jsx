@@ -16,14 +16,14 @@ export function WithAuth(Component) {
 
         useEffect(() => {
             if(user === undefined) onAuth(setUserProfile)
-            if(userDB == undefined) getUserData( setUserData ) 
+            if(userDB == undefined || userDB == null) getUserData( setUserData ) 
             if(user === null) router.push('/')
         }, [user, userDB])
         
         return (
             <>
                 {user === undefined && <Loader />}
-                {user && <Component {...arguments} />}
+                {userDB && <Component {...arguments} />}
             </>
         )
     }

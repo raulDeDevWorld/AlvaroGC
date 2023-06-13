@@ -24,7 +24,7 @@ export default function Home() {
 
   useEffect(() => {
     user === undefined && onAuth(setUserProfile)
-    if (user !== undefined && user !== null) router.replace('/Admin')
+    if (user !== undefined && user !== null) router.replace('/')
   }, [user]);
 
   console.log(user)
